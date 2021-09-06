@@ -48,10 +48,10 @@ client.giveawaysManager = manager;
 
 client.on("message", async message => {
 if(!message.guild) return;
-  let prefix = db.get(`default_prefix${message.guild.id}`)
-  if(prefix === null) prefix =default_prefix;
+  let prefix = db.get(`prefix ${message.guild.id}`)
+  if(prefix === null) prefix = prefix;
   
-  if(!message.content.startsWith(default_prefix)) return;
+  if(!message.content.startsWith(prefix)) return;
  
 })
 
