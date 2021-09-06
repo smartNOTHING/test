@@ -31,6 +31,31 @@ process.setMaxListeners(100);
     require(`./handlers/${handler}`)(client);
 });
 
+const { GiveawaysManager } = require("discord-giveaways");
+// Starts updating currents giveaways
+const manager = new GiveawaysManager(client, {
+    storage: "./handlers/giveaways.json",
+    updateCountdownEvery: 10000,
+    default: {
+        botsCanWin: false,
+        exemptPermissions: [ "MANAGE_MESSAGES", "ADMINISTRATOR" ],
+        embedColor: "#FF0000",
+        reaction: "🎉"
+    }
+});
+// We now have a giveawaysManager property to access the manager everywhere!
+client.giveawaysManager = manager;
+
+client.on("message", async message => {
+if(!message.guild) return;
+  let prefix = db.get(`default_prefix${message.guild.id}`)
+  if(prefix === null) prefix =default_prefix;
+  
+  if(!message.content.startsWith(default_prefix)) return;
+ 
+})
+
+
 //Each Database gets a own file and folder which is pretty handy!
 client.premium = new Enmap({ name: "premium", dataDir: "./databases/premium" })
 client.stats = new Enmap({ name: "stats", dataDir: "./databases/stats" })
